@@ -1,12 +1,21 @@
 {% extends "base.html" %}
-
+{% block title %}
+    Contact Us
+{% endblock %}
 {% block content %}
-    <p> By looking at the website in your browser and seeing this code in your editor, 
-    maybe you can start to see what is going on. There are some things that we want on 
-    every page, like the header or the footer, so we will code that once in the file base.html, 
-    and use that as a building block in other files to create the specific pages we need. 
-
-    This is a key principle of software engineering, called Don't Repeat Yourself, or the DRY principle. 
-    The core idea is to make mistakes in your code in exactly one place and reuse that code everywhere, instead 
-    of copy-pasting your buggy code all over the place. It is much harder to fix that way. 
+<form>
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="First name">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Last name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Insert your questions here</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg">Submit</button>
+  </form>
 {% endblock %}
