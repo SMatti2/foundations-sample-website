@@ -13,3 +13,45 @@ footer{
     margin-top: 5rem;
     text-align: center;
 }
+
+.navbar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar li {
+    list-style-type: none;
+    margin: 0 2vw;
+    font-size: 3vh;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    padding: 2vw;
+    font-family: monospace;
+}
+
+.navbar a:hover{
+    background-color: #C6E9FF;
+}
+
+.navbar {
+    width: 100vw;
+    background-color: #D6EFFF;
+}
+
+@media only screen and (max-width: 500px) {
+    .navbar ul {
+      flex-direction: column;
+    }
+    
+    .navbar li {
+      margin: 0;
+    }
+
+    .navbar a{
+      display: block;
+    }
+  }
