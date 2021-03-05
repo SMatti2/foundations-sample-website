@@ -8,8 +8,8 @@ def test_get_color_code():
     # assert get_color_code("blue") == "#0000ff"
     # the following test will fail at the beginning,
     # uncomment when you think you are finished!
-    color_code = get_color_code("red")[1]
-    assert color_code == "#ff0000"
+    color_code = get_color_code("red")
+    assert color_code[1] == "#ff0000"
 
 
 # our very first functional test
