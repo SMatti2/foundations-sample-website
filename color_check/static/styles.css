@@ -24,3 +24,8 @@ footer {
     height:100px;
     border:1px solid #000;
 }
+
+.error-title {
+    padding-top: 6vh;
+    margin-left: 50%;
+}
