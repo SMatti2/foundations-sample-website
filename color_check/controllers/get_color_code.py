@@ -14,7 +14,7 @@ def get_color_code(color_name):
     
     hex_code=[]
 
-    with open('/Users/TiaSola/Desktop/CODE/SE/foundations/week1/foundations-sample-website/color_check/data/css-color-names.json') as json_file:
+    with open('color_check/data/css-color-names.json') as json_file:
         data = json.load(json_file)
         if color_name in data:
             capitalized_color_name = color_name.capitalize()
