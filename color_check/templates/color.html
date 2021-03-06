@@ -3,10 +3,14 @@
 {% block title %}{{page_title}}{% endblock %}
 
 {% block content %}
-    <h3>The color is valid</h3>
-    <div class="container">
-        <h1>{{color_hex_code[0]}}</h1>
-        <div style="background-color: {{color_hex_code[1]}};" id="rectangle"></div>
-    </div>
+    {% if color_hex_code[0] == "#" %}
+        <h3>The color is valid</h3>
+        <div class="container">
+            <h1>{{color_name}}</h1>
+            <div style="background-color: {{ color_hex_code }};" id="rectangle"></div>
+        </div>
+    {% else %}
+        <h1>{{color_hex_code}}</h1>
+    {% endif %}
     
 {% endblock %}

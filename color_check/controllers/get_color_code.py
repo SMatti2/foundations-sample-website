@@ -12,18 +12,13 @@ def get_color_code(color_name):
     # Open the file at data/css-color-names.json, and return the hex code
     # The file can be considered as JSON format, or as a Python dictionary.
     
-    hex_code=[]
-
-    with open('color_check/data/css-color-names.json') as json_file:
-        data = json.load(json_file)
-        if color_name in data:
-            capitalized_color_name = color_name.capitalize()
-            hex_code.append(capitalized_color_name)
-            hex_code.append(data[color_name])
-        elif color_name.strip() == "":
-            hex_code.append("A color must be inserted")
-        elif color_name not in data:
-            hex_code.append("Color inserted doesn't exist")
-        elif color_name.isnumeric():
-            hex_code.append("Numbers are not allowed")
-    return hex_code
+    try:
+        with open('/Users/TiaSola/Desktop/CODE/SE/foundations/week1/foundations-sample-website/color_check/data/css-color-names.json') as json_file:
+            data = json.load(json_file)
+            data[color_name]
+    except FileNotFoundError as fnf_error:
+        return "Failed loading the colors"
+    except KeyError as ke:
+        return "The color inserted is not valid"
+    else:
+        return data[color_name]
