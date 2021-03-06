@@ -1,7 +1,8 @@
+"""
 from color_check.website import app
 from color_check.controllers.get_color_code import get_color_code
-
-import json
+"""
+import color_check
 
 # test the  function we've written to check on the colors themselves
 def test_get_color_code():
