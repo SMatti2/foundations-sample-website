@@ -20,5 +20,7 @@ def get_color_code(color_name):
         return "Failed loading the colors"
     except KeyError as ke:
         return "The color inserted is not valid"
+    except TypeError as ex:
+        return "You need to provide a color"
     else:
         return data[color_name]
