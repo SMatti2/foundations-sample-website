@@ -17,10 +17,15 @@ def get_color_code(color_name):
             data = json.load(json_file)
             data[color_name]
     except FileNotFoundError as fnf_error:
-        return "Failed loading the colors"
+        raise fnf_error
+        #"Failed loading the colors"
     except KeyError as ke:
-        return "The color inserted is not valid"
+        raise ke
+        #"The color inserted is not valid"
     except TypeError as ex:
-        return "You need to provide a color"
+        raise ex
+        #"You need to provide a color"
+    except ValueError as ve:
+        raise ve
     else:
         return data[color_name]
