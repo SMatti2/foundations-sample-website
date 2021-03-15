@@ -13,19 +13,16 @@ def get_color_code(color_name):
     # The file can be considered as JSON format, or as a Python dictionary.
     
     try:
-        with open('/Users/TiaSola/Desktop/CODE/SE/foundations/week1/foundations-sample-website/color_check/data/css-color-names.json') as json_file:
+        with open('/Users/TiaSola/Desktop/CODE/SE/foundations/foundations-sample-website/color_check/data/css-color-names.json') as json_file:
             data = json.load(json_file)
             data[color_name]
-    except FileNotFoundError as fnf_error:
-        raise fnf_error
-        #"Failed loading the colors"
-    except KeyError as ke:
-        raise ke
-        #"The color inserted is not valid"
-    except TypeError as ex:
-        raise ex
-        #"You need to provide a color"
-    except ValueError as ve:
-        raise ve
+    except FileNotFoundError:
+        return "Failed loading the colors"
+    except KeyError:
+        return "The color inserted is not valid"
+    except TypeError:
+        return "You need to provide a color"
+    except ValueError:
+        return "The color inserted is not valid"
     else:
         return data[color_name]
