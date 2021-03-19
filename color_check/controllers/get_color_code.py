@@ -14,7 +14,7 @@ def get_color_code(color_name):
     with open(os.path.dirname(__file__) +'/../data/css-color-names.json') as colors_list:
         colors = json.load(colors_list)
         try:
-            color_code = colors.get(color_name)
+            color_code = colors[color_name]
         except:
             color_code = f"The color '{color_name}' Doesn't seem to exist :/"
         return color_code
