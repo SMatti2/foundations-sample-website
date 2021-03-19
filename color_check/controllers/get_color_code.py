@@ -5,24 +5,18 @@
 # raise and handle an error that helps both you as a developer,
 # for example by logging the request and error, and the user,
 # letting them know that their color doesn't exist.
-import json
+import json, os
 
 def get_color_code(color_name):
     # this is where you should add your logic to check the color.
     # Open the file at data/css-color-names.json, and return the hex code
     # The file can be considered as JSON format, or as a Python dictionary.
     
-    try:
-        with open('/Users/TiaSola/Desktop/CODE/SE/foundations/foundations-sample-website/color_check/data/css-color-names.json') as json_file:
-            data = json.load(json_file)
-            data[color_name]
-    except FileNotFoundError:
-        return "Failed loading the colors"
-    except KeyError:
-        return "The color inserted is not valid"
-    except TypeError:
-        return "You need to provide a color"
-    except ValueError:
-        return "The color inserted is not valid"
-    else:
-        return data[color_name]
+def get_color_code(color_name):
+    with open(os.path.dirname(__file__) +'/../data/css-color-names.json') as colors_list:
+        colors = json.load(colors_list)
+        try:
+            color_code = colors.get(color_name)
+        except:
+            color_code = f"The color '{color_name}' Doesn't seem to exist :/"
+        return color_code

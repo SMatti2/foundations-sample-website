@@ -1,17 +1,7 @@
-from color_check.website import app
-from color_check.controllers.get_color_code import get_color_code
+from covid_app.website import app
 
 
-# test the  function we've written to check on the colors themselves
-def test_get_color_code():
-    # this test should pass right now
-    #assert get_color_code("blue") == "#0000ff"
-    # the following test will fail at the beginning,
-    # uncomment when you think you are finished!
-    assert get_color_code("red") == "#ff0000"
-
-
-# our very first functional test
+# a functional test
 # instead of checking if a function() does it's job alone, this will check
 # the entire response from the flask app, including the http status code.
 def test_index():
@@ -30,10 +20,12 @@ def test_index():
         assert "<html>" in html_content
 
 
-# check that there is a route at "/colors" which accepts a POST request
-"""
-def test_colors():
-    with app.test_client() as test_client:
-        response = test_client.post('/color')
-        assert response.status_code == 200
-"""
+# doesn't quite work as a test with this architecture; fix for next year. 
+# # check that there is a route at "/create" which accepts a POST request
+# def test_create():
+#     with app.test_client() as test_client:
+
+#         test_data = {'name': 'Adamliqhiohqeghwehg'}
+
+#         response = test_client.post('/create', data=test_data)
+#         assert response.status_code == 201
