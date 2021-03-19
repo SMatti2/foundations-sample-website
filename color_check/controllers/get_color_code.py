@@ -11,8 +11,6 @@ def get_color_code(color_name):
     # this is where you should add your logic to check the color.
     # Open the file at data/css-color-names.json, and return the hex code
     # The file can be considered as JSON format, or as a Python dictionary.
-    
-def get_color_code(color_name):
     with open(os.path.dirname(__file__) +'/../data/css-color-names.json') as colors_list:
         colors = json.load(colors_list)
         try:
