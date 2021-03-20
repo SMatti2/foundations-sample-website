@@ -8,6 +8,9 @@ from covid_app.controllers.database_helpers import close_conection_to_database
 from covid_app.controllers.database_helpers import change_database
 from covid_app.controllers.database_helpers import query_database
 
+import datetime
+
+
 app = Flask(__name__)
 
 # This is a terrible example of how to configure a flask.
@@ -41,12 +44,19 @@ def index():
 @app.route('/create', methods=['POST'])
 def create_meeting():
     try:
+        # defining 'today' and 14 days before in order to display the recent meetings
+        today = datetime.datetime.today()
+        fourteen_days_ago = today - datetime.timedelta(13)
+
+        time = request.form.get('time')
         name = request.form.get('name')
+        date = request.form.get('day').split("-")
+        date = datetime.date(int(date[0]), int(date[1]), int(date[2]))
         # app.logger.info(name)
         # turn this into an SQL command. For example:
         # "Adam" --> "INSERT INTO Meetings (name) VALUES("Adam");"
-        sql_insert = "INSERT INTO Meetings (name) VALUES (\"{name}\");".format(
-            name=name)
+        sql_insert = "INSERT INTO Meetings (name, time, date) VALUES (\"{name}\", \"{time}\", \"{date}\");".format(
+            name=name, time=time, date=date)
 
         # connect to the database with the filename configured above
         # returning a 2-tuple that contains a connection and cursor object
@@ -59,7 +69,8 @@ def create_meeting():
 
         # now, get all of the meetings from the database, not just the new one.
         # first, define the query to get all meetings:
-        sql_query = "SELECT * FROM Meetings;"
+
+        sql_query = "SELECT * FROM Meetings WHERE date BETWEEN datetime('now', '-13 days') AND datetime('now', 'localtime') ORDER BY date ASC;"
 
         # query the database, by passinng the database cursor and query,
         # we expect a list of tuples corresponding to all rows in the database
