@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p> When you are done, this page should be able to give a list of everyone you have met in the last 2 weeks
-    </p>    
-    
+    <p> When you are done, this page should be able to give a list of everyone you have met in the last 2 weeks </p>    
+    <a href="../register">Register a new Person</a>
     <!-- when the user submits this form, it will send the information submitted from the client (frontend)
     to the server (backend). It will send that infromation to a particular URI, at "/color". 
     Your server will then run the code which is defined in website.py at that route. -->
@@ -14,8 +13,13 @@
         <input type="text" name="day" id="day" placeholder="YYYY-MM-DD">
         <label for="time"> At: </label>
         <input type="text" name="time" id="time">
-        <label for="name"> I met: </label>
-        <input type="text" name="name" id="name" required>
+
+        <select name="name">
+            {% for name in names%}
+                <option>{{name[0]}}</option>
+            {% endfor %}
+        </select>
+
         <input type="submit" value="Submit">
     </form>
 
@@ -31,9 +35,9 @@
         <tbody>
         {% for meeting in meetings%}
         <tr>
+          <td>{{ meeting[3] }}</td>
           <td>{{ meeting[1] }}</td>
           <td>{{ meeting[2] }}</td>
-          <td>{{ meeting[3] }}</td>
         </tr>
         {% endfor %}
         </tbody>

@@ -41,30 +41,61 @@ def index():
     return render_template('index.html', page_title="Covid Diary")
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def create_person():
+    if request.method == 'POST':
+        try:
+            name = request.form.get('name')
+            email = request.form.get('email')
+            phone_number = request.form.get('telephone')
+
+            sql_insert = "INSERT INTO Contacts (name, email, phone_number) VALUES (\"{name}\", \"{email}\", \"{phone_number}\");".format(
+                name=name, email=email, phone_number=phone_number)
+
+            database_tuple = connect_to_database(app.config["DATABASE_FILE"])
+            change_database(database_tuple[0], database_tuple[1], sql_insert)
+
+            # select all the names for the form selector
+            sql_query = "SELECT name FROM Contacts ORDER BY name ASC;"
+
+            query_response = query_database(database_tuple[1], sql_query)
+            close_conection_to_database(database_tuple[0])
+
+            return render_template('index.html', page_title="Covid Diary",
+                               names=query_response), 201
+        except Exception:
+            # something bad happended. Return an error page and a 500 error
+            error_code = 500
+            return render_template('error.html', page_title=error_code), error_code
+    else:
+        return render_template("register.html", page_title="Register new user")
+
 @app.route('/create', methods=['POST'])
 def create_meeting():
     try:
-        # defining 'today' and 14 days before in order to display the recent meetings
-        today = datetime.datetime.today()
-        fourteen_days_ago = today - datetime.timedelta(13)
-
-        time = request.form.get('time')
         name = request.form.get('name')
+        time = request.form.get('time')
         date = request.form.get('day').split("-")
         date = datetime.date(int(date[0]), int(date[1]), int(date[2]))
+
+        # getting the person_id from Contacts with the name
         # app.logger.info(name)
         # turn this into an SQL command. For example:
         # "Adam" --> "INSERT INTO Meetings (name) VALUES("Adam");"
-        sql_insert = "INSERT INTO Meetings (name, time, date) VALUES (\"{name}\", \"{time}\", \"{date}\");".format(
-            name=name, time=time, date=date)
 
         # connect to the database with the filename configured above
         # returning a 2-tuple that contains a connection and cursor object
         # --> see file database_helpers for more
         database_tuple = connect_to_database(app.config["DATABASE_FILE"])
 
+        sql_query = "SELECT id FROM Contacts WHERE name = (\"{name}\");".format(
+            name=name)
+        query_response = query_database(database_tuple[1], sql_query)
+
         # now that we have connected, add the new meeting (insert a row)
         # --> see file database_helpers for more
+        sql_insert = "INSERT INTO Meetings (person_id,time, date) VALUES (\"{person_id}\", \"{time}\", \"{date}\");".format(
+            person_id=query_response[0][0],time=time, date=date)
         change_database(database_tuple[0], database_tuple[1], sql_insert)
 
         # now, get all of the meetings from the database, not just the new one.

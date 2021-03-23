@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/register" method="post">
+    <!-- add the contents of your form here -->
+    <label for="name"> Name </label>
+    <input type="text" name="name" id="name">
+
+    <label for="email"> Email </label>
+    <input type="text" name="email" id="email">
+
+    <label for="telephone"> Phone number </label>
+    <input type="text" name="telephone" id="telephone" >
+    
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
