@@ -44,9 +44,6 @@ def index():
 @app.route('/create', methods=['POST'])
 def create_meeting():
     try:
-        # defining 'today' and 14 days before in order to display the recent meetings
-        today = datetime.datetime.today()
-        fourteen_days_ago = today - datetime.timedelta(13)
 
         time = request.form.get('time')
         name = request.form.get('name')
