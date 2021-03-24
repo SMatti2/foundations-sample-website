@@ -44,7 +44,6 @@ def index():
 @app.route('/create', methods=['POST'])
 def create_meeting():
     try:
-
         time = request.form.get('time')
         name = request.form.get('name')
         date = request.form.get('day').split("-")
