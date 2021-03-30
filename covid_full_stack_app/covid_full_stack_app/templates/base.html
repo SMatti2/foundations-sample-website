@@ -40,8 +40,11 @@
               // if the response is a 200, check the data returned from the backend isin JSON format.
               // if that passes, print the data to the javascript console on the browser. 
               response.json().then(function (data) {
-                console.log(data);
-
+                let showPeople = document.getElementById('response');
+                showPeople.innerHTML = "";
+                for (const name of data) {
+                  showPeople.innerHTML += name + " - ";
+                }
                 // Your Homework: instead of printoing to the cosnole, change what the user sees. 
 
                 
@@ -54,9 +57,27 @@
       }
 
       function createNewMeeting() {
+        const nameWritten = document.getElementById("name").value;
+        console.log(nameWritten);
         // creates a new javascript object called form_data, of the type FormData, based on the contents
         // of a form called meeting-form, which is the form defined in index.html.
         const form_data = new FormData(document.getElementById("meeting-form"));
+        // empty the name input
+        document.getElementById("name").value = "";
+        // check if name is already present
+        fetch("/api/meetings/all")
+          .then(
+            function (response) {
+              response.json().then(function (data) {
+                for (const name of data) {
+                  console.log(name);
+                  if (name[0] == nameWritten) {
+                    alert("Name already written");
+                  }
+                };
+              });
+            }
+          )
         fetch("/api/meetings", {
           method: "POST",
           body: form_data,

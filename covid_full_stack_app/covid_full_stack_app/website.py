@@ -48,16 +48,29 @@ def index():
 def create_meeting():
     try:
         name = request.form.get('name')
+        
+        # connect to the database with the filename configured above
+        # returning a 2-tuple that contains a connection and cursor object
+        # --> see file database_helpers for more
+        database_tuple = connect_to_database(app.config["DATABASE_FILE"])
+
+        # check if name is already present in the database
+        #sql_query = "SELECT * FROM Meetings WHERE Name = (\"{name}\");".format(
+        #   name=name);
+
+        # query the database, by passinng the database cursor and query,
+        # we expect a list of tuples corresponding to all rows in the database
+        #query_response = query_database(database_tuple[1], sql_query)
+        
+        #if not query_response:
+        #    flash("You have already wrote this name")
+        #    return Response(status=201)
         # app.logger.info(name)
         # turn this into an SQL command. For example:
         # "Adam" --> "INSERT INTO Meetings (name) VALUES("Adam");"
         sql_insert = "INSERT INTO Meetings (name) VALUES (\"{name}\");".format(
             name=name)
 
-        # connect to the database with the filename configured above
-        # returning a 2-tuple that contains a connection and cursor object
-        # --> see file database_helpers for more
-        database_tuple = connect_to_database(app.config["DATABASE_FILE"])
 
         # now that we have connected, add the new meeting (insert a row)
         # --> see file database_helpers for more
